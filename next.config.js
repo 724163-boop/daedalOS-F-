@@ -13,10 +13,15 @@ const webpack = require("webpack");
  * @type {import("next").NextConfig}
  * */
 const nextConfig = {
-    output: 'export',        
+  // ===== GitHub Pages 用設定 =====
+  output: 'export',
   images: {
-    unoptimized: true,              
+    unoptimized: true,
   },
+  // リポジトリ名が URL に含まれる場合は必須
+  basePath: isProduction ? '/daedalOS' : '',
+  assetPrefix: isProduction ? '/daedalOS/' : '',
+  // ================================
   
   compiler: {
     reactRemoveProperties: isProduction,
@@ -31,6 +36,10 @@ const nextConfig = {
     },
   },
   devIndicators: false,
+  
+  // headers は Static Export では無効化される
+  // GitHub Pages では _headers ファイルで代替
+  /*
   headers: async () => [
     {
       source: "/:path*",
@@ -46,11 +55,14 @@ const nextConfig = {
       ],
     },
   ],
-  output: "export",
+  */
+  
   productionBrowserSourceMaps: false,
   reactProductionProfiling: false,
   reactStrictMode: !isProduction,
+  
   webpack: (config) => {
+    // ... 既存の webpack 設定（変更なし）
     config.plugins.push(
       new webpack.NormalModuleReplacementPlugin(/node:/, (resource) => {
         const mod = resource.request.replace(/^node:/, "");

@@ -19,8 +19,8 @@ const nextConfig = {
     unoptimized: true,
   },
   // リポジトリ名が URL に含まれる場合は必須
-  basePath: isProduction ? '/daedalOS' : '',
-  assetPrefix: isProduction ? '/daedalOS/' : '',
+  basePath: isProduction ? '/daedalOS-F-' : '',
+  assetPrefix: isProduction ? '/daedalOS-F-/' : '',
   // ================================
   
   compiler: {

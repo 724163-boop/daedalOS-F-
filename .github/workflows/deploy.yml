@@ -12,10 +12,15 @@ jobs:
       
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 20  # README の Requirements を確認
       
-      - run: yarn install
-      - run: yarn build
+      - name: Install Dependencies
+        run: NODE_OPTIONS='--openssl-legacy-provider' yarn
+        # ↑ README に書かれている対応を追加
+      
+      - name: Build App
+        run: NODE_OPTIONS='--openssl-legacy-provider' yarn build
+        # ↑ ビルド時も同様に設定
       
       - uses: actions/upload-pages-artifact@v3
         with:
